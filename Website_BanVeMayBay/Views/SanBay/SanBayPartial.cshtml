@@ -1,0 +1,59 @@
+﻿@using Website_BanVeMayBay.Models;
+@model List<SanBay>
+@*<h1 style="color:red;font-weight:bold;">Nhà xuất bản</h1>*@
+
+<div>
+    @using (Html.BeginForm("KetQuaTimKiemSB", "TimKiem", FormMethod.Post))
+    {
+        <div style="display: flex; justify-content: center">
+            @Html.Label("Chọn sân bay đi")
+            <select style="margin: 0 20px" name="cmbTimKiemDi">
+                @{int i = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <option value=@i>@item.TenSanBay</option>
+                }
+            </select>
+            @Html.Label("Chọn sân bay đến")
+            <select style="margin: 0 20px" name="cmbTimKiemDen">
+                @{i = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <option value=@i>@item.TenSanBay</option>
+                }
+            </select>
+        </div>
+        @Html.Label("Nhập ngày đi: Định dạng: ngày/tháng/năm")
+        @Html.TextBox("txtNgayDi", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "dd/MM/YYYY" })
+        <div id="divNgayVe" style="display: none ">
+            @Html.Label("Nhập ngày về: Định dạng: ngày/tháng/năm")
+            @Html.TextBox("txtNgayVe", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "dd/MM/YYYY" })
+        </div>
+        <div>
+            <input type="radio" id="motchieu" name="loaive" checked="checked" value="motchieu">
+            <label for="motchieu">Một chiều</label><br>
+            <input type="radio" id="khuhoi" name="loaive" value="khuhoi">
+            <label for="khuhoi">Khứ hồi</label><br>
+        </div>
+        <div id="divHinhAnhTimKiem">
+            <button style="margin: 20px 0" type="submit"><img src="~/HinhAnh/Search2.png"></button>
+        </div>
+    }
+</div>
+
+<script>
+    var radios = document.querySelectorAll('input[type=radio]');
+    var divNgayVe = document.querySelector('#divNgayVe');
+    for (var i = 0, max = radios.length; i < max; i++) {
+        radios[i].onclick = function () {
+            if (this.value === 'khuhoi')
+                divNgayVe.style.display = 'inline';
+            else
+                divNgayVe.style.display = 'none';
+        }
+    }
+</script>
